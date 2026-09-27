@@ -1,0 +1,1090 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edge & Fire — A History of Swords &amp; Guns</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'], display: ['Space Grotesk', 'system-ui', 'sans-serif'] },
+          colors: {
+            border: 'hsl(240 3.7% 15.9%)',
+            input: 'hsl(240 3.7% 15.9%)',
+            ring: 'hsl(45 93% 47%)',
+            background: 'hsl(240 10% 3.9%)',
+            foreground: 'hsl(0 0% 98%)',
+            primary: { DEFAULT: 'hsl(45 93% 47%)', foreground: 'hsl(240 10% 3.9%)' },
+            secondary: { DEFAULT: 'hsl(240 3.7% 15.9%)', foreground: 'hsl(0 0% 98%)' },
+            destructive: { DEFAULT: 'hsl(0 62.8% 30.6%)', foreground: 'hsl(0 0% 98%)' },
+            muted: { DEFAULT: 'hsl(240 3.7% 15.9%)', foreground: 'hsl(240 5% 64.9%)' },
+            accent: { DEFAULT: 'hsl(240 3.7% 15.9%)', foreground: 'hsl(0 0% 98%)' },
+            card: { DEFAULT: 'hsl(240 10% 3.9%)', foreground: 'hsl(0 0% 98%)' },
+          },
+          borderRadius: { lg: '0.5rem', md: 'calc(0.5rem - 2px)', sm: 'calc(0.5rem - 4px)' },
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: auto; }
+    body { background: hsl(240 10% 3.9%); color: hsl(0 0% 98%); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    html.lenis, html.lenis body { height: auto; }
+    .lenis.lenis-smooth { scroll-behavior: auto !important; }
+    .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+    .animate-in { opacity: 0; transform: translateY(40px); }
+    .animate-in.animated { opacity: 1; transform: translateY(0); }
+    .hero-title span { display: inline-block; opacity: 0; transform: translateY(60px) rotateX(-40deg); }
+    .glow-gold { box-shadow: 0 0 40px rgba(217, 119, 6, 0.3), 0 0 80px rgba(217, 119, 6, 0.1); }
+    .parallax-layer { will-change: transform; }
+    .card-hover { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 30px rgba(217, 119, 6, 0.1); }
+    .gradient-text { background: linear-gradient(135deg, #fff 0%, #d97706 50%, #fff 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .section-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(217,119,6,0.5), transparent); }
+    .table-row { transition: background 0.2s ease; }
+    .table-row:hover { background: rgba(217, 119, 6, 0.05); }
+    @keyframes float { 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-10px); } }
+    .float-anim { animation: float 4s ease-in-out infinite; }
+    @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 20px rgba(217,119,6,0.2); } 50% { box-shadow: 0 0 40px rgba(217,119,6,0.4); } }
+    .pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+    .progress-bar-fill { transform: scaleX(0); transform-origin: left; }
+    img { transition: opacity 0.6s ease, transform 0.7s ease; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: hsl(240 10% 3.9%); }
+    ::-webkit-scrollbar-thumb { background: hsl(45 93% 47%); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: hsl(45 93% 40%); }
+  </style>
+</head>
+<body class="dark">
+
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+          <span class="text-primary-foreground font-bold text-sm">E&amp;F</span>
+        </div>
+        <span class="font-display font-bold text-lg tracking-tight">Edge &amp; Fire</span>
+      </div>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#swords" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Swords</a>
+        <a href="#guns" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Guns</a>
+        <a href="#specs" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Specifications</a>
+        <a href="#comparison" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Comparison</a>
+        <a href="#legacy" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Legacy</a>
+      </div>
+      <button id="nav-toggle" class="md:hidden p-2 rounded-md hover:bg-secondary transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <div id="mobile-menu" class="fixed inset-0 z-40 bg-background/95 backdrop-blur-xl hidden flex-col items-center justify-center gap-8">
+    <a href="#swords" class="text-2xl font-display font-bold mobile-link">Swords</a>
+    <a href="#guns" class="text-2xl font-display font-bold mobile-link">Guns</a>
+    <a href="#specs" class="text-2xl font-display font-bold mobile-link">Specifications</a>
+    <a href="#comparison" class="text-2xl font-display font-bold mobile-link">Comparison</a>
+    <a href="#legacy" class="text-2xl font-display font-bold mobile-link">Legacy</a>
+  </div>
+
+  <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0">
+      <img src="https://images.unsplash.com/photo-1542403764-19e1bb75cc75?w=1920&q=80&auto=format&fit=crop" alt="Ornate sword detail" class="w-full h-full object-cover" loading="eager" />
+      <div class="absolute inset-0 bg-gradient-to-b from-background/70 via-background/80 to-background"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-primary/5 to-primary/5"></div>
+    </div>
+    <div class="absolute top-20 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl parallax-layer" data-speed="0.03"></div>
+    <div class="absolute bottom-20 right-10 w-96 h-96 bg-primary/3 rounded-full blur-3xl parallax-layer" data-speed="0.05"></div>
+    <div class="relative z-10 text-center px-6 max-w-5xl">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-secondary/50 backdrop-blur-sm mb-8 animate-in">
+        <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+        <span class="text-sm text-muted-foreground">4,000 Years of Weaponry</span>
+      </div>
+      <h1 class="hero-title font-display text-6xl md:text-8xl lg:text-9xl font-bold mb-6 leading-[0.9] tracking-tighter">
+        <span>Edge</span>
+        <span class="text-muted-foreground/30">&amp;</span><br/>
+        <span class="gradient-text">Fire</span>
+      </h1>
+      <p class="animate-in text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
+        From the bronze forges of Mesopotamia to the gunsmiths of the Industrial Revolution &mdash;
+        the story of humanity's most transformative weapons is the story of civilization itself.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-in">
+        <a href="#swords" class="inline-flex items-center justify-center gap-2 h-11 px-8 rounded-md bg-primary text-primary-foreground font-medium text-sm hover:bg-primary/90 transition-colors glow-gold">
+          Explore the History
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+        </a>
+        <a href="#specs" class="inline-flex items-center justify-center gap-2 h-11 px-8 rounded-md border border-border bg-secondary text-foreground font-medium text-sm hover:bg-accent transition-colors">
+          View Specifications
+        </a>
+      </div>
+      <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-in float-anim">
+        <div class="w-6 h-10 rounded-full border-2 border-muted-foreground/30 flex justify-center pt-2">
+          <div class="w-1.5 h-3 rounded-full bg-primary animate-bounce"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Swords History Section -->
+  <section id="swords" class="py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="animate-in mb-16">
+        <span class="text-primary text-sm font-medium tracking-widest uppercase">The Age of Steel</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold mt-3 tracking-tight">A Legacy Forged in Steel</h2>
+        <p class="text-muted-foreground mt-4 max-w-2xl text-lg">For millennia, the sword was the supreme weapon of war &mdash; a symbol of power, honor, and mastery.</p>
+      </div>
+
+      <div class="relative">
+        <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-border"></div>
+        <div class="space-y-16">
+
+          <div class="relative flex flex-col md:flex-row items-start gap-8 animate-in">
+            <div class="md:w-1/2 md:text-right md:pr-12">
+              <div class="p-6 rounded-xl border border-border bg-card card-hover">
+                <span class="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-3">3300&ndash;1200 BC</span>
+                <h3 class="font-display text-xl font-bold mb-2">The Bronze Age Sword</h3>
+                <p class="text-muted-foreground text-sm leading-relaxed">The first swords emerged in the Near East during the Bronze Age. Cast from an alloy of copper and tin, these early blades were short, leaf-shaped, and more suited to slashing than thrusting. The Khopesh of ancient Egypt and the Sickle Sword of Mesopotamia became weapons of both war and ceremony.</p>
+                <div class="mt-4 rounded-lg overflow-hidden">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Uruk_spearhead_early_dynastic_period.jpg/640px-Uruk_spearhead_early_dynastic_period.jpg" alt="Ancient Mesopotamian weapon" class="w-full h-32 object-cover" loading="lazy" />
+                </div>
+              </div>
+            </div>
+            <div class="absolute left-4 md:left-1/2 w-3 h-3 rounded-full bg-primary border-4 border-background -translate-x-1.5 mt-8"></div>
+            <div class="md:w-1/2 md:pl-12"></div>
+          </div>
+
+          <div class="relative flex flex-col md:flex-row items-start gap-8 animate-in">
+            <div class="md:w-1/2 md:pr-12 order-2 md:order-none"></div>
+            <div class="absolute left-4 md:left-1/2 w-3 h-3 rounded-full bg-primary border-4 border-background -translate-x-1.5 mt-8"></div>
+            <div class="md:w-1/2 md:pl-12 order-1 md:order-none">
+              <div class="p-6 rounded-xl border border-border bg-card card-hover">
+                <span class="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-3">1200&ndash;500 BC</span>
+                <h3 class="font-display text-xl font-bold mb-2">The Iron Revolution</h3>
+                <p class="text-muted-foreground text-sm leading-relaxed">The Hittites pioneered iron smelting, creating harder, cheaper, and more durable blades. Iron swords spread across the Mediterranean and Near East, democratizing warfare. The Greek Xiphos and the Celtic La Tene swords pushed metallurgy to new heights, with pattern-welding and differential hardening.</p>
+                <div class="mt-4 rounded-lg overflow-hidden">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Gladius_Marius.jpg/640px-Gladius_Marius.jpg" alt="Roman gladius" class="w-full h-32 object-cover" loading="lazy" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative flex flex-col md:flex-row items-start gap-8 animate-in">
+            <div class="md:w-1/2 md:text-right md:pr-12">
+              <div class="p-6 rounded-xl border border-border bg-card card-hover">
+                <span class="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-3">500&ndash;1500 AD</span>
+                <h3 class="font-display text-xl font-bold mb-2">The Knightly Sword</h3>
+                <p class="text-muted-foreground text-sm leading-relaxed">The medieval arming sword and longsword became the quintessential weapon of the European knight. With cruciform hilts symbolizing the cross, these double-edged blades were designed for both cutting and thrusting. The Viking Ulfberht swords, forged from crucible steel, were technological marvels of their era.</p>
+                <div class="mt-4 rounded-lg overflow-hidden">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Sword_%287028671347%29.jpg/640px-Sword_%287028671347%29.jpg" alt="Medieval sword" class="w-full h-32 object-cover" loading="lazy" />
+                </div>
+              </div>
+            </div>
+            <div class="absolute left-4 md:left-1/2 w-3 h-3 rounded-full bg-primary border-4 border-background -translate-x-1.5 mt-8"></div>
+            <div class="md:w-1/2 md:pl-12"></div>
+          </div>
+
+          <div class="relative flex flex-col md:flex-row items-start gap-8 animate-in">
+            <div class="md:w-1/2 md:pr-12 order-2 md:order-none"></div>
+            <div class="absolute left-4 md:left-1/2 w-3 h-3 rounded-full bg-primary border-4 border-background -translate-x-1.5 mt-8"></div>
+            <div class="md:w-1/2 md:pl-12 order-1 md:order-none">
+              <div class="p-6 rounded-xl border border-border bg-card card-hover">
+                <span class="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-3">10th&ndash;19th Century</span>
+                <h3 class="font-display text-xl font-bold mb-2">The Japanese Katana</h3>
+                <p class="text-muted-foreground text-sm leading-relaxed">The katana represents the pinnacle of sword craftsmanship. Folded steel, differential hardening with clay tempering, and a distinctive curved blade created a weapon of extraordinary sharpness and beauty. For the samurai, the katana was their soul &mdash; a sacred object passed down through generations.</p>
+                <div class="mt-4 rounded-lg overflow-hidden">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Japanese_Samurai_Sword_And_Scabbard%3B_Katana_%2848708894038%29.jpg/640px-Japanese_Samurai_Sword_And_Scabbard%3B_Katana_%2848708894038%29.jpg" alt="Japanese Katana" class="w-full h-32 object-cover" loading="lazy" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative flex flex-col md:flex-row items-start gap-8 animate-in">
+            <div class="md:w-1/2 md:text-right md:pr-12">
+              <div class="p-6 rounded-xl border border-border bg-card card-hover">
+                <span class="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-3">16th&ndash;17th Century</span>
+                <h3 class="font-display text-xl font-bold mb-2">The Rapier</h3>
+                <p class="text-muted-foreground text-sm leading-relaxed">As armor declined and civilian dueling rose, the rapier emerged as a weapon of precision and elegance. Its long, slender blade and elaborate swept hilt made it a masterpiece of design. The art of fencing &mdash; with its complex system of parries and ripostes &mdash; was born from the rapier tradition.</p>
+              </div>
+            </div>
+            <div class="absolute left-4 md:left-1/2 w-3 h-3 rounded-full bg-primary border-4 border-background -translate-x-1.5 mt-8"></div>
+            <div class="md:w-1/2 md:pl-12"></div>
+          </div>
+
+          <div class="relative flex flex-col md:flex-row items-start gap-8 animate-in">
+            <div class="md:w-1/2 md:pr-12 order-2 md:order-none"></div>
+            <div class="absolute left-4 md:left-1/2 w-3 h-3 rounded-full bg-primary border-4 border-background -translate-x-1.5 mt-8"></div>
+            <div class="md:w-1/2 md:pl-12 order-1 md:order-none">
+              <div class="p-6 rounded-xl border border-border bg-card card-hover">
+                <span class="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-3">19th Century</span>
+                <h3 class="font-display text-xl font-bold mb-2">Twilight of the Blade</h3>
+                <p class="text-muted-foreground text-sm leading-relaxed">The sword's dominance on the battlefield ended with the rise of firearms. By the 19th century, swords became ceremonial and officers' sidearms. The last large-scale cavalry charge with swords occurred during World War I &mdash; a final, desperate echo of an ancient tradition.</p>
+                <div class="mt-4 rounded-lg overflow-hidden">
+                  <img src="https://images.unsplash.com/photo-1440711085503-89d8ec455791?w=600&q=80&auto=format&fit=crop" alt="Steel sword" class="w-full h-32 object-cover" loading="lazy" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="relative h-[50vh] md:h-[60vh] overflow-hidden animate-in">
+    <img src="https://images.unsplash.com/photo-1542403764-19e1bb75cc75?w=1920&q=80&auto=format&fit=crop" alt="Ornate sword close-up" class="w-full h-full object-cover" loading="lazy" />
+    <div class="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-background/60"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent"></div>
+    <div class="absolute bottom-0 left-0 right-0 p-8 md:p-16">
+      <span class="text-primary text-sm font-medium tracking-widest uppercase">Photography</span>
+      <h3 class="font-display text-2xl md:text-3xl font-bold mt-2">The Art of the Blade</h3>
+      <p class="text-muted-foreground mt-2 max-w-lg text-sm">A masterfully crafted sword &mdash; where function meets the highest form of artistry.</p>
+    </div>
+  </div>
+
+  <div class="section-divider max-w-4xl mx-auto"></div>
+
+  <!-- Guns History Section -->
+  <section id="guns" class="py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="animate-in mb-16">
+        <span class="text-primary text-sm font-medium tracking-widest uppercase">The Age of Powder</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold mt-3 tracking-tight">Gunpowder &amp; Steel</h2>
+        <p class="text-muted-foreground mt-4 max-w-2xl text-lg">The invention of gunpowder changed everything. Warfare, society, and power itself were redefined.</p>
+      </div>
+
+      <div class="relative">
+        <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-border"></div>
+        <div class="space-y-16">
+
+          <div class="relative flex flex-col md:flex-row items-start gap-8 animate-in">
+            <div class="md:w-1/2 md:text-right md:pr-12">
+              <div class="p-6 rounded-xl border border-border bg-card card-hover">
+                <span class="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-3">9th Century</span>
+                <h3 class="font-display text-xl font-bold mb-2">The Discovery of Gunpowder</h3>
+                <p class="text-muted-foreground text-sm leading-relaxed">Chinese alchemists seeking an elixir of immortality stumbled upon gunpowder &mdash; a mixture of saltpeter, sulfur, and charcoal. Originally used in fireworks and signal flares, it soon found its way into the first crude firearms: fire lances, bombs, and rockets.</p>
+              </div>
+            </div>
+            <div class="absolute left-4 md:left-1/2 w-3 h-3 rounded-full bg-primary border-4 border-background -translate-x-1.5 mt-8"></div>
+            <div class="md:w-1/2 md:pl-12"></div>
+          </div>
+
+          <div class="relative flex flex-col md:flex-row items-start gap-8 animate-in">
+            <div class="md:w-1/2 md:pr-12 order-2 md:order-none"></div>
+            <div class="absolute left-4 md:left-1/2 w-3 h-3 rounded-full bg-primary border-4 border-background -translate-x-1.5 mt-8"></div>
+            <div class="md:w-1/2 md:pl-12 order-1 md:order-none">
+              <div class="p-6 rounded-xl border border-border bg-card card-hover">
+                <span class="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-3">15th&ndash;16th Century</span>
+                <h3 class="font-display text-xl font-bold mb-2">The Matchlock Musket</h3>
+                <p class="text-muted-foreground text-sm leading-relaxed">The matchlock mechanism &mdash; a slow-burning cord pressed into a pan of priming powder &mdash; made firearms shoulderable for the first time. The arquebus and later the musket transformed European warfare, rendering armored knights obsolete and giving rise to massed infantry tactics.</p>
+                <div class="mt-4 rounded-lg overflow-hidden">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Flintlock_Rifle_MET_aa42.22.AV1.jpg/640px-Flintlock_Rifle_MET_aa42.22.AV1.jpg" alt="Flintlock rifle" class="w-full h-32 object-cover" loading="lazy" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative flex flex-col md:flex-row items-start gap-8 animate-in">
+            <div class="md:w-1/2 md:text-right md:pr-12">
+              <div class="p-6 rounded-xl border border-border bg-card card-hover">
+                <span class="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-3">17th&ndash;19th Century</span>
+                <h3 class="font-display text-xl font-bold mb-2">The Flintlock Era</h3>
+                <p class="text-muted-foreground text-sm leading-relaxed">The flintlock mechanism replaced the matchlock with a piece of flint striking steel to create sparks. More reliable, weatherproof, and faster to load, flintlock muskets armed the armies that shaped the modern world &mdash; from the Napoleonic Wars to the American Revolution.</p>
+                <div class="mt-4 rounded-lg overflow-hidden">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Flintlock_Rifle_MET_aa42.22.AV1.jpg/640px-Flintlock_Rifle_MET_aa42.22.AV1.jpg" alt="Flintlock detail" class="w-full h-32 object-cover" loading="lazy" />
+                </div>
+              </div>
+            </div>
+            <div class="absolute left-4 md:left-1/2 w-3 h-3 rounded-full bg-primary border-4 border-background -translate-x-1.5 mt-8"></div>
+            <div class="md:w-1/2 md:pl-12"></div>
+          </div>
+
+          <div class="relative flex flex-col md:flex-row items-start gap-8 animate-in">
+            <div class="md:w-1/2 md:pr-12 order-2 md:order-none"></div>
+            <div class="absolute left-4 md:left-1/2 w-3 h-3 rounded-full bg-primary border-4 border-background -translate-x-1.5 mt-8"></div>
+            <div class="md:w-1/2 md:pl-12 order-1 md:order-none">
+              <div class="p-6 rounded-xl border border-border bg-card card-hover">
+                <span class="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-3">19th Century</span>
+                <h3 class="font-display text-xl font-bold mb-2">The Revolver Revolution</h3>
+                <p class="text-muted-foreground text-sm leading-relaxed">Samuel Colt's revolving cylinder gave shooters multiple shots without reloading. The Colt Paterson, the Walker, and the iconic Single Action Army Peacemaker tamed the American frontier. The revolver became the weapon of cowboys, lawmen, and outlaws &mdash; a symbol of the Wild West.</p>
+                <div class="mt-4 rounded-lg overflow-hidden">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Colt_1851_Navy_Revolver.jpg/640px-Colt_1851_Navy_Revolver.jpg" alt="Colt revolver" class="w-full h-32 object-cover" loading="lazy" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative flex flex-col md:flex-row items-start gap-8 animate-in">
+            <div class="md:w-1/2 md:text-right md:pr-12">
+              <div class="p-6 rounded-xl border border-border bg-card card-hover">
+                <span class="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-3">20th&ndash;21st Century</span>
+                <h3 class="font-display text-xl font-bold mb-2">The Modern Era</h3>
+                <p class="text-muted-foreground text-sm leading-relaxed">Bolt-action rifles, semi-automatic pistols, assault rifles, and precision sniper systems &mdash; modern firearms are feats of engineering. From the Mauser Gewehr 98 to the M16 and AK-47, weapons have shaped geopolitics, and the debate over their role in society continues to this day.</p>
+              </div>
+            </div>
+            <div class="absolute left-4 md:left-1/2 w-3 h-3 rounded-full bg-primary border-4 border-background -translate-x-1.5 mt-8"></div>
+            <div class="md:w-1/2 md:pl-12"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Strip -->
+  <div class="py-8 px-6 overflow-hidden">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 animate-in">
+        <div class="relative rounded-xl overflow-hidden aspect-[4/3] group">
+          <img src="https://images.unsplash.com/photo-1440711085503-89d8ec455791?w=800&q=80&auto=format&fit=crop" alt="Steel sword on display" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div class="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <span class="text-xs text-muted-foreground">Medieval Longsword</span>
+          </div>
+        </div>
+        <div class="relative rounded-xl overflow-hidden aspect-[4/3] group">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Flintlock_Rifle_MET_aa42.22.AV1.jpg/960px-Flintlock_Rifle_MET_aa42.22.AV1.jpg" alt="Flintlock rifle detail" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div class="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <span class="text-xs text-muted-foreground">Flintlock Rifle &middot; The Metropolitan Museum</span>
+          </div>
+        </div>
+        <div class="relative rounded-xl overflow-hidden aspect-[4/3] group">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Japanese_Samurai_Sword_And_Scabbard%3B_Katana_%2848708894038%29.jpg/960px-Japanese_Samurai_Sword_And_Scabbard%3B_Katana_%2848708894038%29.jpg" alt="Japanese katana" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div class="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <span class="text-xs text-muted-foreground">Japanese Katana &middot; CC BY 2.0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider max-w-4xl mx-auto"></div>
+
+  <!-- Specifications Section -->
+  <section id="specs" class="py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="animate-in mb-16">
+        <span class="text-primary text-sm font-medium tracking-widest uppercase">Technical</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold mt-3 tracking-tight">Specifications</h2>
+        <p class="text-muted-foreground mt-4 max-w-2xl text-lg">The dimensions, materials, and engineering behind history's most iconic weapons.</p>
+      </div>
+
+      <div class="animate-in rounded-xl overflow-hidden mb-16 relative group">
+        <img src="https://images.unsplash.com/photo-1542403764-19e1bb75cc75?w=1280&q=80&auto=format&fit=crop" alt="Sword craftsmanship" class="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+        <div class="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent"></div>
+        <div class="absolute bottom-4 left-4 right-4">
+          <span class="text-xs text-muted-foreground/80">Masterwork blade detailing</span>
+        </div>
+      </div>
+
+      <!-- Sword Specs Table -->
+      <div class="animate-in rounded-xl border border-border bg-card overflow-hidden mb-16">
+        <div class="p-6 border-b border-border">
+          <h3 class="font-display text-lg font-bold">Swords Across Cultures</h3>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-border">
+                <th class="text-left p-4 font-medium text-muted-foreground">Sword</th>
+                <th class="text-left p-4 font-medium text-muted-foreground">Origin</th>
+                <th class="text-left p-4 font-medium text-muted-foreground">Era</th>
+                <th class="text-right p-4 font-medium text-muted-foreground">Blade Length</th>
+                <th class="text-right p-4 font-medium text-muted-foreground">Weight</th>
+                <th class="text-right p-4 font-medium text-muted-foreground">Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="table-row border-b border-border/50">
+                <td class="p-4 font-medium">Roman Gladius</td>
+                <td class="p-4 text-muted-foreground">Rome</td>
+                <td class="p-4 text-muted-foreground">300 BC&ndash;200 AD</td>
+                <td class="p-4 text-right">50&ndash;70 cm</td>
+                <td class="p-4 text-right">0.7&ndash;1.0 kg</td>
+                <td class="p-4 text-right">Short Sword</td>
+              </tr>
+              <tr class="table-row border-b border-border/50">
+                <td class="p-4 font-medium">Viking Ulfberht</td>
+                <td class="p-4 text-muted-foreground">Scandinavia</td>
+                <td class="p-4 text-muted-foreground">800&ndash;1100 AD</td>
+                <td class="p-4 text-right">70&ndash;90 cm</td>
+                <td class="p-4 text-right">1.0&ndash;1.4 kg</td>
+                <td class="p-4 text-right">Longsword</td>
+              </tr>
+              <tr class="table-row border-b border-border/50">
+                <td class="p-4 font-medium">Japanese Katana</td>
+                <td class="p-4 text-muted-foreground">Japan</td>
+                <td class="p-4 text-muted-foreground">10th&ndash;19th C.</td>
+                <td class="p-4 text-right">60&ndash;80 cm</td>
+                <td class="p-4 text-right">0.9&ndash;1.3 kg</td>
+                <td class="p-4 text-right">Curved Single-Edge</td>
+              </tr>
+              <tr class="table-row border-b border-border/50">
+                <td class="p-4 font-medium">European Longsword</td>
+                <td class="p-4 text-muted-foreground">Europe</td>
+                <td class="p-4 text-muted-foreground">1100&ndash;1500</td>
+                <td class="p-4 text-right">80&ndash;110 cm</td>
+                <td class="p-4 text-right">1.2&ndash;1.8 kg</td>
+                <td class="p-4 text-right">Hand-and-a-Half</td>
+              </tr>
+              <tr class="table-row border-b border-border/50">
+                <td class="p-4 font-medium">Rapier</td>
+                <td class="p-4 text-muted-foreground">Spain/Italy</td>
+                <td class="p-4 text-muted-foreground">1500&ndash;1700</td>
+                <td class="p-4 text-right">90&ndash;130 cm</td>
+                <td class="p-4 text-right">1.0&ndash;1.4 kg</td>
+                <td class="p-4 text-right">Thrusting</td>
+              </tr>
+              <tr class="table-row">
+                <td class="p-4 font-medium">Celtic La Tene</td>
+                <td class="p-4 text-muted-foreground">Celtic Europe</td>
+                <td class="p-4 text-muted-foreground">450&ndash;100 BC</td>
+                <td class="p-4 text-right">60&ndash;85 cm</td>
+                <td class="p-4 text-right">0.7&ndash;1.1 kg</td>
+                <td class="p-4 text-right">Leaf-Blade</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Gun Specs Image -->
+      <div class="animate-in rounded-xl overflow-hidden mb-16 relative group">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Flintlock_Rifle_MET_aa42.22.AV1.jpg/1280px-Flintlock_Rifle_MET_aa42.22.AV1.jpg" alt="Flintlock rifle detail" class="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+        <div class="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent"></div>
+        <div class="absolute bottom-4 left-4 right-4">
+          <span class="text-xs text-muted-foreground/80">Flintlock Rifle &middot; The Metropolitan Museum of Art</span>
+        </div>
+      </div>
+
+      <!-- Gun Specs Table -->
+      <div class="animate-in rounded-xl border border-border bg-card overflow-hidden mb-16">
+        <div class="p-6 border-b border-border">
+          <h3 class="font-display text-lg font-bold">Firearms Across Eras</h3>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-border">
+                <th class="text-left p-4 font-medium text-muted-foreground">Firearm</th>
+                <th class="text-left p-4 font-medium text-muted-foreground">Type</th>
+                <th class="text-left p-4 font-medium text-muted-foreground">Era</th>
+                <th class="text-right p-4 font-medium text-muted-foreground">Caliber</th>
+                <th class="text-right p-4 font-medium text-muted-foreground">Range</th>
+                <th class="text-right p-4 font-medium text-muted-foreground">Rate of Fire</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="table-row border-b border-border/50">
+                <td class="p-4 font-medium">Brown Bess Musket</td>
+                <td class="p-4 text-muted-foreground">Flintlock</td>
+                <td class="p-4 text-muted-foreground">1722&ndash;1838</td>
+                <td class="p-4 text-right">.75 cal</td>
+                <td class="p-4 text-right">~100 m</td>
+                <td class="p-4 text-right">2&ndash;3 rpm</td>
+              </tr>
+              <tr class="table-row border-b border-border/50">
+                <td class="p-4 font-medium">Colt Single Action Army</td>
+                <td class="p-4 text-muted-foreground">Revolver</td>
+                <td class="p-4 text-muted-foreground">1873&ndash;present</td>
+                <td class="p-4 text-right">.45 Colt</td>
+                <td class="p-4 text-right">~50 m</td>
+                <td class="p-4 text-right">12 rpm</td>
+              </tr>
+              <tr class="table-row border-b border-border/50">
+                <td class="p-4 font-medium">Mauser Gewehr 98</td>
+                <td class="p-4 text-muted-foreground">Bolt-Action</td>
+                <td class="p-4 text-muted-foreground">1898&ndash;1945</td>
+                <td class="p-4 text-right">7.92mm</td>
+                <td class="p-4 text-right">~500 m</td>
+                <td class="p-4 text-right">15 rpm</td>
+              </tr>
+              <tr class="table-row border-b border-border/50">
+                <td class="p-4 font-medium">M16 / M4</td>
+                <td class="p-4 text-muted-foreground">Assault Rifle</td>
+                <td class="p-4 text-muted-foreground">1964&ndash;present</td>
+                <td class="p-4 text-right">5.56mm</td>
+                <td class="p-4 text-right">~450 m</td>
+                <td class="p-4 text-right">700&ndash;950 rpm</td>
+              </tr>
+              <tr class="table-row">
+                <td class="p-4 font-medium">AK-47</td>
+                <td class="p-4 text-muted-foreground">Assault Rifle</td>
+                <td class="p-4 text-muted-foreground">1949&ndash;present</td>
+                <td class="p-4 text-right">7.62mm</td>
+                <td class="p-4 text-right">~350 m</td>
+                <td class="p-4 text-right">600 rpm</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider max-w-4xl mx-auto"></div>
+
+  <!-- Comparison / Charts Section -->
+  <section id="comparison" class="py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="animate-in mb-16">
+        <span class="text-primary text-sm font-medium tracking-widest uppercase">Data</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold mt-3 tracking-tight">By the Numbers</h2>
+        <p class="text-muted-foreground mt-4 max-w-2xl text-lg">Charting the evolution of weaponry through data visualization.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-16">
+        <div class="animate-in p-6 rounded-xl border border-border bg-card card-hover">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-muted-foreground text-sm">First Sword</span>
+            <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+          </div>
+          <div class="text-3xl font-display font-bold">3300 <span class="text-lg text-muted-foreground">BC</span></div>
+          <span class="text-xs text-muted-foreground mt-2 block">Bronze Age, Near East</span>
+        </div>
+        <div class="animate-in p-6 rounded-xl border border-border bg-card card-hover">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-muted-foreground text-sm">Gunpowder</span>
+            <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <div class="text-3xl font-display font-bold">850 <span class="text-lg text-muted-foreground">AD</span></div>
+          <span class="text-xs text-muted-foreground mt-2 block">Tang Dynasty, China</span>
+        </div>
+        <div class="animate-in p-6 rounded-xl border border-border bg-card card-hover">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-muted-foreground text-sm">AK-47 Units</span>
+            <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+          </div>
+          <div class="text-3xl font-display font-bold">100M+</div>
+          <span class="text-xs text-muted-foreground mt-2 block">Most produced firearm ever</span>
+        </div>
+        <div class="animate-in p-6 rounded-xl border border-border bg-card card-hover pulse-glow">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-muted-foreground text-sm">Katana Folding</span>
+            <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          </div>
+          <div class="text-3xl font-display font-bold">16+</div>
+          <span class="text-xs text-muted-foreground mt-2 block">Layers in traditional tamahagane steel</span>
+        </div>
+      </div>
+
+      <!-- Charts -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-16">
+        <div class="animate-in p-6 rounded-xl border border-border bg-card">
+          <h3 class="font-display text-lg font-bold mb-1">Weapon Range Evolution</h3>
+          <p class="text-sm text-muted-foreground mb-6">Effective range of infantry weapons over time</p>
+          <div class="relative h-64">
+            <canvas id="rangeChart"></canvas>
+          </div>
+        </div>
+        <div class="animate-in p-6 rounded-xl border border-border bg-card">
+          <h3 class="font-display text-lg font-bold mb-1">Rate of Fire Comparison</h3>
+          <p class="text-sm text-muted-foreground mb-6">Rounds or strikes per minute by weapon type</p>
+          <div class="relative h-64">
+            <canvas id="fireRateChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="animate-in p-6 rounded-xl border border-border bg-card mb-16">
+        <h3 class="font-display text-lg font-bold mb-1">Timeline of Key Weapons</h3>
+        <p class="text-sm text-muted-foreground mb-6">Major milestones in the history of edged and projectile weapons</p>
+        <div class="relative h-72">
+          <canvas id="timelineChart"></canvas>
+        </div>
+      </div>
+
+      <div class="animate-in p-6 rounded-xl border border-border bg-card">
+        <h3 class="font-display text-lg font-bold mb-1">Sword vs. Gun: Battlefield Dominance</h3>
+        <p class="text-sm text-muted-foreground mb-6">Relative military importance through the ages</p>
+        <div class="relative h-80 max-w-2xl mx-auto">
+          <canvas id="dominanceChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scrollable Image Strip -->
+  <div class="py-4 px-6 overflow-hidden">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex gap-3 overflow-x-auto pb-4 animate-in" style="scroll-snap-type: x mandatory;">
+        <div class="flex-none w-64 md:w-80 relative rounded-xl overflow-hidden aspect-video group" style="scroll-snap-align: start;">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Japanese_Samurai_Sword_And_Scabbard%3B_Katana_%2848708894038%29.jpg/640px-Japanese_Samurai_Sword_And_Scabbard%3B_Katana_%2848708894038%29.jpg" alt="Katana" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent"></div>
+          <div class="absolute bottom-2 left-2"><span class="text-xs text-muted-foreground/80">Japanese Katana</span></div>
+        </div>
+        <div class="flex-none w-64 md:w-80 relative rounded-xl overflow-hidden aspect-video group" style="scroll-snap-align: start;">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Flintlock_Rifle_MET_aa42.22.AV1.jpg/640px-Flintlock_Rifle_MET_aa42.22.AV1.jpg" alt="Flintlock" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent"></div>
+          <div class="absolute bottom-2 left-2"><span class="text-xs text-muted-foreground/80">Flintlock Rifle</span></div>
+        </div>
+        <div class="flex-none w-64 md:w-80 relative rounded-xl overflow-hidden aspect-video group" style="scroll-snap-align: start;">
+          <img src="https://images.unsplash.com/photo-1440711085503-89d8ec455791?w=600&q=80&auto=format&fit=crop" alt="Sword display" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent"></div>
+          <div class="absolute bottom-2 left-2"><span class="text-xs text-muted-foreground/80">Medieval Blade</span></div>
+        </div>
+        <div class="flex-none w-64 md:w-80 relative rounded-xl overflow-hidden aspect-video group" style="scroll-snap-align: start;">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Colt_1851_Navy_Revolver.jpg/640px-Colt_1851_Navy_Revolver.jpg" alt="Colt revolver" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent"></div>
+          <div class="absolute bottom-2 left-2"><span class="text-xs text-muted-foreground/80">Colt Navy Revolver</span></div>
+        </div>
+        <div class="flex-none w-64 md:w-80 relative rounded-xl overflow-hidden aspect-video group" style="scroll-snap-align: start;">
+          <img src="https://images.unsplash.com/photo-1542403764-19e1bb75cc75?w=600&q=80&auto=format&fit=crop" alt="Sword detail" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent"></div>
+          <div class="absolute bottom-2 left-2"><span class="text-xs text-muted-foreground/80">Blade Detail</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider max-w-4xl mx-auto"></div>
+
+  <!-- Legacy Section -->
+  <section id="legacy" class="py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="animate-in mb-16">
+        <span class="text-primary text-sm font-medium tracking-widest uppercase">Cultural Impact</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold mt-3 tracking-tight">Legacy &amp; Memory</h2>
+        <p class="text-muted-foreground mt-4 max-w-2xl text-lg">Beyond their use in warfare, swords and guns have shaped culture, mythology, and art for millennia.</p>
+      </div>
+
+      <!-- Legacy Hero Image -->
+      <div class="animate-in rounded-xl overflow-hidden mb-16 relative group">
+        <img src="https://images.unsplash.com/photo-1440711085503-89d8ec455791?w=1280&q=80&auto=format&fit=crop" alt="Sword on stone" class="w-full h-64 md:h-96 object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+        <div class="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent"></div>
+        <div class="absolute inset-0 flex items-center justify-center">
+          <div class="text-center">
+            <span class="text-primary text-sm font-medium tracking-widest uppercase">Beyond the Battlefield</span>
+            <h3 class="font-display text-3xl md:text-5xl font-bold mt-2">Symbols of Power</h3>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pop Culture Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+        <div class="animate-in p-6 rounded-xl border border-border bg-card card-hover group">
+          <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+            <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          </div>
+          <h3 class="font-display text-lg font-bold mb-2">Myth &amp; Legend</h3>
+          <p class="text-muted-foreground text-sm leading-relaxed">From Excalibur to Joyeuse, swords have been central to mythology worldwide. King Arthur's legendary blade, the dancing sword of Zhang Sanfeng, and the Damascus steel of the Crusades all blur the line between history and myth.</p>
+        </div>
+        <div class="animate-in p-6 rounded-xl border border-border bg-card card-hover group">
+          <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+            <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"/></svg>
+          </div>
+          <h3 class="font-display text-lg font-bold mb-2">Hollywood &amp; Film</h3>
+          <p class="text-muted-foreground text-sm leading-relaxed">Swords dominate fantasy cinema (Lord of the Rings, Braveheart), while guns define the Western and action genres. From the lightsaber to the Beretta, on-screen weapons have become cultural icons in their own right.</p>
+        </div>
+        <div class="animate-in p-6 rounded-xl border border-border bg-card card-hover group">
+          <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+            <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"/></svg>
+          </div>
+          <h3 class="font-display text-lg font-bold mb-2">Political Debate</h3>
+          <p class="text-muted-foreground text-sm leading-relaxed">Firearms have been at the center of political discourse since their invention. From the Second Amendment to modern gun control movements, the relationship between citizens, states, and weapons continues to shape policy and society.</p>
+        </div>
+      </div>
+
+      <!-- Quote -->
+      <div class="animate-in max-w-3xl mx-auto text-center py-16">
+        <svg class="w-10 h-10 text-primary/30 mx-auto mb-6" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+        <p class="text-2xl md:text-3xl font-display font-medium leading-relaxed italic">
+          "The sword is the sun of the warrior. Gunpowder is the fire of the revolution. Together, they have forged the modern world."
+        </p>
+        <p class="text-muted-foreground mt-6 text-sm">&mdash; Historical Proverb</p>
+      </div>
+
+      <!-- Legacy Image Pair -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 animate-in">
+        <div class="relative rounded-xl overflow-hidden aspect-video group">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Japanese_Samurai_Sword_And_Scabbard%3B_Katana_%2848708894038%29.jpg/960px-Japanese_Samurai_Sword_And_Scabbard%3B_Katana_%2848708894038%29.jpg" alt="Japanese katana" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-background/70 to-transparent"></div>
+          <div class="absolute bottom-3 left-3"><span class="text-xs text-muted-foreground/80">Japanese Katana &middot; CC BY 2.0</span></div>
+        </div>
+        <div class="relative rounded-xl overflow-hidden aspect-video group">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Flintlock_Rifle_MET_aa42.22.AV1.jpg/960px-Flintlock_Rifle_MET_aa42.22.AV1.jpg" alt="Flintlock rifle" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-background/70 to-transparent"></div>
+          <div class="absolute bottom-3 left-3"><span class="text-xs text-muted-foreground/80">Flintlock Rifle &middot; The Metropolitan Museum</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final Banner -->
+  <div class="relative h-[40vh] md:h-[50vh] overflow-hidden animate-in">
+    <img src="https://images.unsplash.com/photo-1542403764-19e1bb75cc75?w=1920&q=80&auto=format&fit=crop" alt="Sword close up" class="w-full h-full object-cover" loading="lazy" />
+    <div class="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background"></div>
+    <div class="absolute inset-0 flex items-center justify-center">
+      <div class="text-center">
+        <h3 class="font-display text-3xl md:text-5xl font-bold">Forged in Fire, Remembered in Legend</h3>
+        <p class="text-muted-foreground mt-3 max-w-md mx-auto text-sm">The weapons of yesterday shaped the world we live in today. Their story is far from over.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider max-w-4xl mx-auto"></div>
+
+  <!-- Footer -->
+  <footer class="py-16 px-6 border-t border-border">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+            <span class="text-primary-foreground font-bold text-sm">E&amp;F</span>
+          </div>
+          <span class="font-display font-bold text-lg">Edge &amp; Fire</span>
+        </div>
+        <div class="flex items-center gap-6">
+          <a href="#swords" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Swords</a>
+          <a href="#guns" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Guns</a>
+          <a href="#specs" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Specifications</a>
+          <a href="#comparison" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Comparison</a>
+          <a href="#legacy" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Legacy</a>
+        </div>
+      </div>
+      <div class="mt-8 pt-8 border-t border-border text-center">
+        <p class="text-sm text-muted-foreground">A tribute to the history of edged and projectile weapons.</p>
+        <p class="text-xs text-muted-foreground/50 mt-2">Built with anime.js, Lenis, Chart.js &amp; shadcn/ui design system</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // LENIS SMOOTH SCROLL
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    lenis.on('scroll', (e) => {
+      const navbar = document.getElementById('navbar');
+      if (e.scroll > 50) {
+        navbar.style.borderBottomColor = 'rgba(217, 119, 6, 0.2)';
+      } else {
+        navbar.style.borderBottomColor = '';
+      }
+    });
+
+    // MOBILE MENU
+    const navToggle = document.getElementById('nav-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    let menuOpen = false;
+
+    navToggle.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      mobileMenu.classList.toggle('hidden', !menuOpen);
+      mobileMenu.classList.toggle('flex', menuOpen);
+    });
+
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        menuOpen = false;
+        mobileMenu.classList.add('hidden');
+        mobileMenu.classList.remove('flex');
+      });
+    });
+
+    // ANIME.JS HERO ANIMATION
+    anime.timeline({ delay: 300 })
+      .add({
+        targets: '.hero-title span',
+        opacity: [0, 1],
+        translateY: [60, 0],
+        rotateX: [-40, 0],
+        duration: 1200,
+        easing: 'easeOutExpo',
+        delay: anime.stagger(200),
+      })
+      .add({
+        targets: '#hero .animate-in',
+        opacity: [0, 1],
+        translateY: [40, 0],
+        duration: 800,
+        easing: 'easeOutExpo',
+        delay: anime.stagger(150),
+      }, '-=600');
+
+    // SCROLL-TRIGGERED ANIMATIONS
+    const animateElements = document.querySelectorAll('section:not(#hero) .animate-in');
+    const progressBars = document.querySelectorAll('.progress-bar-fill');
+
+    const observerOptions = { threshold: 0.15, rootMargin: '0px 0px -50px 0px' };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animated');
+          anime({
+            targets: entry.target,
+            opacity: [0, 1],
+            translateY: [40, 0],
+            duration: 800,
+            easing: 'easeOutExpo',
+          });
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    animateElements.forEach(el => observer.observe(el));
+
+    // Progress bars animation
+    const progressObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          anime({
+            targets: entry.target,
+            scaleX: [0, 1],
+            duration: 1200,
+            easing: 'easeOutExpo',
+            delay: 200,
+          });
+          progressObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    progressBars.forEach(bar => progressObserver.observe(bar));
+
+    // PARALLAX ON SCROLL
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      document.querySelectorAll('.parallax-layer').forEach(layer => {
+        const speed = parseFloat(layer.getAttribute('data-speed'));
+        layer.style.transform = `translateY(${scrolled * speed}px)`;
+      });
+    });
+
+    // CHART.JS CHARTS
+    const chartDefaults = {
+      color: 'rgba(255,255,255,0.6)',
+      borderColor: 'rgba(255,255,255,0.1)',
+      font: { family: 'Inter' },
+    };
+    Chart.defaults.color = chartDefaults.color;
+    Chart.defaults.borderColor = chartDefaults.borderColor;
+    Chart.defaults.font.family = chartDefaults.font.family;
+
+    // Range Chart
+    new Chart(document.getElementById('rangeChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Bronze Sword', 'Iron Sword', 'Longsword', 'Musket', 'Rifle', 'Assault Rifle'],
+        datasets: [{
+          label: 'Effective Range (m)',
+          data: [1, 2, 3, 100, 500, 450],
+          backgroundColor: [
+            'rgba(217, 119, 6, 0.9)',
+            'rgba(217, 119, 6, 0.8)',
+            'rgba(217, 119, 6, 0.7)',
+            'rgba(217, 119, 6, 0.5)',
+            'rgba(217, 119, 6, 0.4)',
+            'rgba(217, 119, 6, 0.3)',
+          ],
+          borderColor: 'rgba(217, 119, 6, 1)',
+          borderWidth: 1,
+          borderRadius: 6,
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, title: { display: true, text: 'Meters', color: 'rgba(255,255,255,0.5)' } },
+          x: { grid: { display: false } }
+        }
+      }
+    });
+
+    // Fire Rate Chart
+    new Chart(document.getElementById('fireRateChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Sword Strike', 'Musket (muzzleloader)', 'Colt SAA', 'Bolt-Action', 'AK-47', 'M4'],
+        datasets: [{
+          label: 'Rounds/Strikes per Minute',
+          data: [30, 3, 12, 15, 600, 900],
+          backgroundColor: 'rgba(217, 119, 6, 0.7)',
+          borderColor: 'rgba(217, 119, 6, 1)',
+          borderWidth: 1,
+          borderRadius: 6,
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' } },
+          y: { grid: { display: false } }
+        }
+      }
+    });
+
+    // Timeline Chart
+    new Chart(document.getElementById('timelineChart'), {
+      type: 'line',
+      data: {
+        labels: ['3300 BC', '1200 BC', '500 BC', '0 AD', '850 AD', '1400 AD', '1600', '1700', '1850', '1950'],
+        datasets: [
+          {
+            label: 'Sword Technology',
+            data: [1, 3, 5, 7, 8, 9, 9, 9, 8, 6],
+            borderColor: 'rgba(217, 119, 6, 1)',
+            backgroundColor: 'rgba(217, 119, 6, 0.1)',
+            fill: true,
+            tension: 0.4,
+            pointBackgroundColor: 'rgba(217, 119, 6, 1)',
+            pointBorderColor: '#fff',
+            pointBorderWidth: 2,
+            pointRadius: 5,
+          },
+          {
+            label: 'Firearm Technology',
+            data: [0, 0, 0, 0, 1, 2, 4, 6, 8, 10],
+            borderColor: 'rgba(255, 255, 255, 0.6)',
+            backgroundColor: 'rgba(255, 255, 255, 0.05)',
+            fill: true,
+            tension: 0.4,
+            pointBackgroundColor: 'rgba(255, 255, 255, 0.6)',
+            pointBorderColor: '#fff',
+            pointBorderWidth: 2,
+            pointRadius: 5,
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: { padding: 20, usePointStyle: true, pointStyleWidth: 10 }
+          }
+        },
+        scales: {
+          y: { beginAtZero: true, max: 11, grid: { color: 'rgba(255,255,255,0.05)' }, title: { display: true, text: 'Tech Level', color: 'rgba(255,255,255,0.5)' } },
+          x: { grid: { display: false } }
+        }
+      }
+    });
+
+    // Dominance Chart
+    new Chart(document.getElementById('dominanceChart'), {
+      type: 'radar',
+      data: {
+        labels: ['Cutting Power', 'Thrusting', 'Range', 'Reload Speed', 'Durability', 'Portability'],
+        datasets: [
+          {
+            label: 'Medieval Longsword',
+            data: [9, 7, 1, 10, 9, 7],
+            borderColor: 'rgba(217, 119, 6, 1)',
+            backgroundColor: 'rgba(217, 119, 6, 0.2)',
+            pointBackgroundColor: 'rgba(217, 119, 6, 1)',
+          },
+          {
+            label: 'Flintlock Musket',
+            data: [0, 0, 7, 1, 6, 5],
+            borderColor: 'rgba(255, 255, 255, 0.6)',
+            backgroundColor: 'rgba(255, 255, 255, 0.05)',
+            pointBackgroundColor: 'rgba(255, 255, 255, 0.6)',
+          },
+          {
+            label: 'Modern Assault Rifle',
+            data: [0, 0, 9, 10, 7, 8],
+            borderColor: 'rgba(255, 200, 0, 0.7)',
+            backgroundColor: 'rgba(255, 200, 0, 0.05)',
+            pointBackgroundColor: 'rgba(255, 200, 0, 0.7)',
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          r: {
+            beginAtZero: true,
+            max: 10,
+            grid: { color: 'rgba(255,255,255,0.1)' },
+            angleLines: { color: 'rgba(255,255,255,0.1)' },
+            pointLabels: { color: 'rgba(255,255,255,0.7)', font: { size: 12 } },
+            ticks: { display: false },
+          }
+        },
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { padding: 20, usePointStyle: true, pointStyleWidth: 10 }
+          }
+        }
+      }
+    });
+
+    // ADDITIONAL ANIME.JS MICRO-INTERACTIONS
+    document.querySelectorAll('.card-hover').forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        anime({ targets: card, scale: 1.02, duration: 300, easing: 'easeOutQuad' });
+      });
+      card.addEventListener('mouseleave', () => {
+        anime({ targets: card, scale: 1, duration: 300, easing: 'easeOutQuad' });
+      });
+    });
+
+    document.querySelectorAll('#navbar a, footer a').forEach(link => {
+      link.addEventListener('mouseenter', () => {
+        anime({ targets: link, color: '#ffffff', duration: 200, easing: 'easeOutQuad' });
+      });
+      link.addEventListener('mouseleave', () => {
+        anime({ targets: link, color: 'hsl(240, 5%, 64.9%)', duration: 200, easing: 'easeOutQuad' });
+      });
+    });
+
+    // Section divider animation
+    const dividerObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          anime({
+            targets: entry.target,
+            scaleX: [0, 1],
+            opacity: [0, 1],
+            duration: 1200,
+            easing: 'easeOutExpo',
+          });
+          dividerObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.section-divider').forEach(d => dividerObserver.observe(d));
+
+    // IMAGE LAZY LOAD FADE-IN
+    document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+      if (img.complete) { img.classList.add('loaded'); }
+      else { img.addEventListener('load', () => img.classList.add('loaded')); }
+    });
+    document.querySelectorAll('img[loading="eager"]').forEach(img => {
+      if (img.complete) { img.classList.add('loaded'); }
+      else { img.addEventListener('load', () => img.classList.add('loaded')); }
+    });
+  </script>
+</body>
+</html>
