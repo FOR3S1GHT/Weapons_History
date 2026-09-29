@@ -1,0 +1,29 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: auto; }
+body { background: hsl(240 10% 3.9%); color: hsl(0 0% 98%); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.animate-in { opacity: 0; transform: translateY(40px); }
+.animate-in.animated { opacity: 1; transform: translateY(0); }
+.hero-title span { display: inline-block; opacity: 0; transform: translateY(60px) rotateX(-40deg); }
+.glow-gold { box-shadow: 0 0 40px rgba(217, 119, 6, 0.3), 0 0 80px rgba(217, 119, 6, 0.1); }
+.parallax-layer { will-change: transform; }
+.card-hover { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+.card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 30px rgba(217, 119, 6, 0.1); }
+.gradient-text { background: linear-gradient(135deg, #fff 0%, #d97706 50%, #fff 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.section-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(217,119,6,0.5), transparent); }
+.table-row { transition: background 0.2s ease; }
+.table-row:hover { background: rgba(217, 119, 6, 0.05); }
+@keyframes float { 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-10px); } }
+.float-anim { animation: float 4s ease-in-out infinite; }
+@keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 20px rgba(217,119,6,0.2); } 50% { box-shadow: 0 0 40px rgba(217,119,6,0.4); } }
+.pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+.progress-bar-fill { transform: scaleX(0); transform-origin: left; }
+img { transition: opacity 0.6s ease, transform 0.7s ease; }
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: hsl(240 10% 3.9%); }
+::-webkit-scrollbar-thumb { background: hsl(45 93% 47%); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: hsl(45 93% 40%); }
+.snap-track { scroll-snap-type: x mandatory; }
+.snap-item { scroll-snap-align: start; }
